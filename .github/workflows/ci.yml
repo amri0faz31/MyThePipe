@@ -27,7 +27,8 @@ jobs:
         run: dotnet build --no-restore --configuration Release
 
       - name: Run Unit Tests
-        run: dotnet test ../../VetApi.UnitTests/ --no-build --configuration Release --verbosity normal --logger trx --results-directory ./TestResults
+        run: dotnet test ../../VetApi.UnitTests/ --no-build --configuration Release --verbosity normal --logger trx --results-directory ../../VetApi.UnitTests/TestResults
+        # Changed to: --results-directory ../../VetApi.UnitTests/TestResults
 
       - name: Publish Test Results
         uses: dorny/test-reporter@v1
