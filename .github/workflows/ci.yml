@@ -2,8 +2,8 @@ name: CI - Feature Branch Unit Tests
 
 on:
   push:
-    branches: ['feature/*']  # <- FIXED: Changed from 'feature/**' to 'feature/*'
-    paths-ignore: ['*.md']   # Skip if only docs change
+    branches: ['feature/*']
+    paths-ignore: ['*.md']
 
 jobs:
   backend-unit-tests:
@@ -27,20 +27,12 @@ jobs:
         run: dotnet build --no-restore --configuration Release
 
       - name: Run Unit Tests
-        run: dotnet test ../../VetApi.UnitTests/ --no-build --configuration Release --verbosity normal
+        run: dotnet test ../../VetApi.UnitTests/ --no-build --configuration Release --verbosity normal --logger trx --results-directory ./TestResults
 
-      # REMOVE these advanced steps for now to keep it simple
-      # - name: Publish Test Results
-      #   uses: dorny/test-reporter@v1
-      #   if: always()
-      #   with:
-      #     name: .NET Unit Tests
-      #     path: ../../VetApi.UnitTests/TestResults/*.trx
-      #     reporter: dotnet-trx
-
-      # - name: Publish Test Coverage
-      #   uses: codecov/codecov-action@v4
-      #   if: always()
-      #   with:
-      #     files: ../../VetApi.UnitTests/coverage/**/coverage.cobertura.xml
-      #     token: ${{ secrets.CODECOV_TOKEN }}
+      - name: Publish Test Results
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: .NET Unit Tests
+          path: ../../VetApi.UnitTests/TestResults/*.trx
+          reporter: dotnet-trx
