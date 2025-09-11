@@ -10,5 +10,12 @@
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.8" />
     <PackageReference Include="MySql.Data" Version="9.4.0" />
   </ItemGroup>
+   <!-- NEW: Add this ItemGroup to grant access to test projects -->
+  <ItemGroup>
+    <!-- For Unit Tests -->
+    <InternalsVisibleTo Include="VetApi.UnitTests" />
+    <!-- For Integration Tests -->
+    <InternalsVisibleTo Include="VetApi.IntegrationTests" />
+  </ItemGroup>
 
 </Project>

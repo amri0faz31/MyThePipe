@@ -7,7 +7,7 @@ function App() {
   const [loading, setLoading] = useState(false)
 
   // API base URL - points to your backend
-  const API_BASE = 'http://localhost:5096/api/vets'
+  const API_BASE = import.meta.env.VITE_API_BASE + '/api/vets';
 
   // Fetch all vets from backend
   const fetchVets = async () => {

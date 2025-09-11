@@ -6,19 +6,29 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddSingleton<VetRepository>();
 
+var app = builder.Build();
+
+// Run migrations automatically
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
+                       ?? Environment.GetEnvironmentVariable("MYSQL_CONNECTION_STRING");
+if (!string.IsNullOrEmpty(connectionString))
+{
+    DatabaseMigrator.Migrate(connectionString);
+}
+
 // Add CORS policy
+var allowedOrigins = builder.Configuration["AllowedOrigins"] ?? "http://localhost:5173";
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp",
         policy =>
         {
-            policy.WithOrigins("http://localhost:5173") // React dev server
+            policy.WithOrigins(allowedOrigins) // Now configurable!
                   .AllowAnyHeader()
                   .AllowAnyMethod();
         });
 });
 
-var app = builder.Build();
 
 app.UseHttpsRedirection();
 app.UseRouting();

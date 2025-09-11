@@ -1,0 +1,181 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/amrifazlul/Downloads/MyThePipe/VetApi.IntegrationTests/VetApi.IntegrationTests.csproj": {}
+  },
+  "projects": {
+    "/Users/amrifazlul/Downloads/MyThePipe/backpipe/VetApi/VetApi.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/amrifazlul/Downloads/MyThePipe/backpipe/VetApi/VetApi.csproj",
+        "projectName": "VetApi",
+        "projectPath": "/Users/amrifazlul/Downloads/MyThePipe/backpipe/VetApi/VetApi.csproj",
+        "packagesPath": "/Users/amrifazlul/.nuget/packages/",
+        "outputPath": "/Users/amrifazlul/Downloads/MyThePipe/backpipe/VetApi/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/amrifazlul/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[9.0.8, )"
+            },
+            "MySql.Data": {
+              "target": "Package",
+              "version": "[9.4.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.304/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/amrifazlul/Downloads/MyThePipe/VetApi.IntegrationTests/VetApi.IntegrationTests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/amrifazlul/Downloads/MyThePipe/VetApi.IntegrationTests/VetApi.IntegrationTests.csproj",
+        "projectName": "VetApi.IntegrationTests",
+        "projectPath": "/Users/amrifazlul/Downloads/MyThePipe/VetApi.IntegrationTests/VetApi.IntegrationTests.csproj",
+        "packagesPath": "/Users/amrifazlul/.nuget/packages/",
+        "outputPath": "/Users/amrifazlul/Downloads/MyThePipe/VetApi.IntegrationTests/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/amrifazlul/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "/Users/amrifazlul/Downloads/MyThePipe/backpipe/VetApi/VetApi.csproj": {
+                "projectPath": "/Users/amrifazlul/Downloads/MyThePipe/backpipe/VetApi/VetApi.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Mvc.Testing": {
+              "target": "Package",
+              "version": "[9.0.9, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[9.0.9, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.14.1, )"
+            },
+            "MySql.Data": {
+              "target": "Package",
+              "version": "[9.4.0, )"
+            },
+            "Testcontainers": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            },
+            "Testcontainers.MySql": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            },
+            "coverlet.collector": {
+              "target": "Package",
+              "version": "[6.0.2, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.9.2, )"
+            },
+            "xunit.runner.visualstudio": {
+              "target": "Package",
+              "version": "[2.8.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.304/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

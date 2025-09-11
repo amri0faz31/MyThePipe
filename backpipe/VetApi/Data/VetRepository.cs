@@ -1,5 +1,6 @@
 using MySql.Data.MySqlClient;
 using VetApi.Models;
+using System;
 
 namespace VetApi.Data
 {
@@ -9,8 +10,23 @@ namespace VetApi.Data
 
         public VetRepository(IConfiguration config)
         {
-            _connectionString = config.GetConnectionString("DefaultConnection")
-                ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            // 1. First, try to get from Environment Variable
+            var connStr = Environment.GetEnvironmentVariable("MYSQL_CONNECTION_STRING");
+
+            // 2. If not found in environment, fall back to appsettings.json
+            if (string.IsNullOrEmpty(connStr))
+            {
+            connStr = config.GetConnectionString("DefaultConnection");
+            }
+
+            // 3. If still not found, throw a clear error
+            if (string.IsNullOrEmpty(connStr))
+            {
+            throw new InvalidOperationException("Database connection string not found. " +
+            "Set it in appsettings.json or MYSQL_CONNECTION_STRING environment variable.");
+            }
+
+            _connectionString = connStr!;
         }
         // GET all vets
         public IEnumerable<Vet> GetAll()

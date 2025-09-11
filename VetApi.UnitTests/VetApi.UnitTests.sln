@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VetApi.UnitTests", "VetApi.UnitTests.csproj", "{D4D40181-8E34-907F-5E3A-69675F4B9C1C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D4D40181-8E34-907F-5E3A-69675F4B9C1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4D40181-8E34-907F-5E3A-69675F4B9C1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4D40181-8E34-907F-5E3A-69675F4B9C1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4D40181-8E34-907F-5E3A-69675F4B9C1C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D5769156-0B2D-46C1-AAA0-B78F667E26EF}
+	EndGlobalSection
+EndGlobal
