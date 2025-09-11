@@ -8,10 +8,7 @@ on:
 jobs:
   backend-unit-tests:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./backpipe/VetApi
-    steps:
+    steps:  # <- REMOVED defaults.working-directory
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -27,13 +24,12 @@ jobs:
         run: dotnet build --no-restore --configuration Release
 
       - name: Run Unit Tests
-        run: dotnet test ../../VetApi.UnitTests/ --no-build --configuration Release --verbosity normal --logger trx --results-directory ../../VetApi.UnitTests/TestResults
-        # Changed to: --results-directory ../../VetApi.UnitTests/TestResults
+        run: dotnet test VetApi.UnitTests/ --no-build --configuration Release --verbosity normal --logger trx --results-directory VetApi.UnitTests/TestResults
 
       - name: Publish Test Results
         uses: dorny/test-reporter@v1
         if: always()
         with:
           name: .NET Unit Tests
-          path: ../../VetApi.UnitTests/TestResults/*.trx
+          path: VetApi.UnitTests/TestResults/*.trx  # <- SIMPLER PATH
           reporter: dotnet-trx
