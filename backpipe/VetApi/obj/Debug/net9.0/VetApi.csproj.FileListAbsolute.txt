@@ -1,5 +1,7 @@
 /Users/amrifazlul/Downloads/MyThePipe/backpipe/VetApi/bin/Debug/net9.0/appsettings.Development.json
 /Users/amrifazlul/Downloads/MyThePipe/backpipe/VetApi/bin/Debug/net9.0/appsettings.json
+/Users/amrifazlul/Downloads/MyThePipe/backpipe/VetApi/bin/Debug/net9.0/appsettings.Production.json
+/Users/amrifazlul/Downloads/MyThePipe/backpipe/VetApi/bin/Debug/net9.0/appsettings.Test.json
 /Users/amrifazlul/Downloads/MyThePipe/backpipe/VetApi/bin/Debug/net9.0/VetApi.staticwebassets.endpoints.json
 /Users/amrifazlul/Downloads/MyThePipe/backpipe/VetApi/bin/Debug/net9.0/VetApi
 /Users/amrifazlul/Downloads/MyThePipe/backpipe/VetApi/bin/Debug/net9.0/VetApi.deps.json
@@ -48,5 +50,3 @@
 /Users/amrifazlul/Downloads/MyThePipe/backpipe/VetApi/obj/Debug/net9.0/VetApi.pdb
 /Users/amrifazlul/Downloads/MyThePipe/backpipe/VetApi/obj/Debug/net9.0/VetApi.genruntimeconfig.cache
 /Users/amrifazlul/Downloads/MyThePipe/backpipe/VetApi/obj/Debug/net9.0/ref/VetApi.dll
-/Users/amrifazlul/Downloads/MyThePipe/backpipe/VetApi/bin/Debug/net9.0/appsettings.Production.json
-/Users/amrifazlul/Downloads/MyThePipe/backpipe/VetApi/bin/Debug/net9.0/appsettings.Test.json

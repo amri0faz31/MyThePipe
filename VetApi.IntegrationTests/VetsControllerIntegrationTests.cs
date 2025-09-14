@@ -4,15 +4,18 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Testcontainers.MySql;
 using VetApi.Models;
 using Xunit;
-using MySqlConnector; // Or MySql.Data.MySqlClient
+//using MySqlConnector; // Or MySql.Data.MySqlClient
+using MySql.Data.MySqlClient;
+using Microsoft.AspNetCore.Hosting;              // for UseEnvironment
+using Microsoft.Extensions.Configuration;       // for AddInMemoryCollection
 
 namespace VetApi.IntegrationTests;
 
 public class VetsControllerIntegrationTests : IAsyncLifetime
 {
     private readonly MySqlContainer _dbContainer;
-    private WebApplicationFactory<Program> _factory;
-    private HttpClient _client;
+    private WebApplicationFactory<Program> _factory = null!;
+    private HttpClient _client = null!;
 
     public VetsControllerIntegrationTests()
     {
