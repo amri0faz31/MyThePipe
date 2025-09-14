@@ -11,6 +11,11 @@ on:
       - 'VetApi.IntegrationTests/**'
       - '.github/workflows/ci.yml' # ✅ Include workflow file itself
 
+permissions:
+  checks: write
+  contents: read
+  pull-requests: write  # ← ADD THIS for PRs from forks
+
 jobs:
   backend-full-tests:
     runs-on: ubuntu-latest
