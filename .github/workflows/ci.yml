@@ -9,6 +9,7 @@ on:
       - 'VetApi.UnitTests/**'   # ✅ Include unit test projects
       - 'VetApi.IntegrationTests/**' # ✅ Include integration test projects
       - 'VetApi.sln'            # ✅ Include root solution file
+      - '.github/workflows/ci.yml' # ✅ Include workflow file itself
 
 permissions:
   checks: write
@@ -40,7 +41,7 @@ jobs:
         if: always()
         with:
           name: .NET Unit Tests
-          path: VetApi.UnitTests/TestResults/*.trx  # ← This is correct
+          path: VetApi.UnitTests/TestResults/**/*.trx
           reporter: dotnet-trx
 
   frontend-build:
