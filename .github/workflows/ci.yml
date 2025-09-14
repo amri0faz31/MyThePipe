@@ -40,7 +40,7 @@ jobs:
         if: always()
         with:
           name: .NET Unit Tests
-          path: VetApi.UnitTests/TestResults/*.trx
+          path: VetApi.UnitTests/TestResults/*.trx  # ← This is correct
           reporter: dotnet-trx
 
   frontend-build:

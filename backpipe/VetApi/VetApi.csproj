@@ -1,10 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <!-- NEW: Add this to grant access to test projects -->
+    <!-- ✅ CORRECT: InternalsVisibleTo goes in PropertyGroup -->
     <InternalsVisibleTo Include="VetApi.UnitTests" />
     <InternalsVisibleTo Include="VetApi.IntegrationTests" />
   </PropertyGroup>
@@ -13,5 +12,4 @@
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.8" />
     <PackageReference Include="MySql.Data" Version="9.4.0" />
   </ItemGroup>
-
 </Project>
