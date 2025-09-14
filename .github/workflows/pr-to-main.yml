@@ -1,0 +1,46 @@
+# .github/workflows/pr-to-main.yml
+name: CI - PR to Main (Full Test Suite)
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'backpipe/**'
+      - 'frontend/**'
+      - 'VetApi.UnitTests/**'
+      - 'VetApi.IntegrationTests/**'
+      - '.github/workflows/ci.yml' # ✅ Include workflow file itself
+
+jobs:
+  backend-full-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Setup Docker for Testcontainers
+        run: sudo systemctl start docker
+
+      - name: Restore and Build
+        run: |
+          dotnet restore VetApi.sln
+          dotnet build VetApi.sln --no-restore --configuration Release
+
+      - name: Run Unit Tests
+        run: dotnet test VetApi.UnitTests/ --no-build --configuration Release --logger trx --results-directory UnitTestResults
+
+      - name: Run Integration Tests
+        run: dotnet test VetApi.IntegrationTests/ --no-build --configuration Release --logger trx --results-directory IntegrationTestResults
+
+      - name: Publish All Test Results
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: .NET Test Results
+          path: '**/*TestResults/**/*.trx'
+          reporter: dotnet-trx
