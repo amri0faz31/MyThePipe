@@ -8,22 +8,41 @@ function App() {
 
   // API base URL - points to your backend
   const API_BASE = import.meta.env.VITE_API_BASE + '/api/vets';
+  console.log('🔍 API_BASE resolved to:', API_BASE)
 
   // Fetch all vets from backend
   const fetchVets = async () => {
-    try {
-      setLoading(true)
-      const response = await fetch(API_BASE)
-      if (!response.ok) throw new Error('Failed to fetch vets')
-      const data = await response.json()
-      setVets(data)
-    } catch (error) {
-      console.error('Error fetching vets:', error)
-      alert('Error loading vets. Is the backend running?')
-    } finally {
-      setLoading(false)
+  try {
+    setLoading(true)
+    
+    // DEBUG: Log the exact URL being called
+    console.log('🔄 Fetching from URL:', API_BASE)
+    
+    const response = await fetch(API_BASE)
+    
+    // DEBUG: Check response status and headers
+    console.log('📊 Response status:', response.status, response.statusText)
+    const contentType = response.headers.get('content-type')
+    console.log('📄 Content-Type:', contentType)
+    
+    if (!response.ok) {
+      // DEBUG: See what the response actually contains
+      const responseText = await response.text()
+      console.log('❌ Response text:', responseText)
+      throw new Error(`Failed to fetch vets: ${response.status} ${response.statusText}`)
     }
+    
+    const data = await response.json()
+    console.log('✅ Data received:', data)
+    setVets(data)
+    
+  } catch (error) {
+    console.error('❌ Error fetching vets:', error)
+    alert('Error loading vets. Is the backend running?')
+  } finally {
+    setLoading(false)
   }
+}
 
   // Add a new vet
   const addVet = async () => {

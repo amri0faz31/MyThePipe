@@ -8,7 +8,7 @@ public static class DatabaseMigrator
     {
         using var connection = new MySqlConnection(connectionString);
         connection.Open();
-        
+
         var command = new MySqlCommand(@"
             CREATE TABLE IF NOT EXISTS Vets (
                 Id INT AUTO_INCREMENT PRIMARY KEY,

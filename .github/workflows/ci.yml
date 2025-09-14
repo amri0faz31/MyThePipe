@@ -1,17 +1,23 @@
-name: CI - Feature Branch Unit Tests
+name: CI - Feature Branch Validation
 
 on:
   push:
     branches: ['feature/*']
-    paths-ignore: ['*.md']
+    paths:
+      - 'backpipe/**'           # ✅ Only trigger on backpipe changes
+      - 'frontend/**'           # ✅ Only trigger on frontend changes
+      - 'VetApi.UnitTests/**'   # ✅ Include unit test projects
+      - 'VetApi.IntegrationTests/**' # ✅ Include integration test projects
+      - 'VetApi.sln'            # ✅ Include root solution file
+
+permissions:
+  checks: write
+  contents: read
 
 jobs:
   backend-unit-tests:
     runs-on: ubuntu-latest
-    permissions: 
-      checks: write    # <- ADD THIS LINE
-      contents: read   # <- AND THIS ONE
-    steps:  # <- REMOVED defaults.working-directory
+    steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -21,18 +27,41 @@ jobs:
           dotnet-version: '9.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore VetApi.sln  # ✅ Use root solution
 
       - name: Build
-        run: dotnet build --no-restore --configuration Release
+        run: dotnet build VetApi.sln --no-restore --configuration Release
 
       - name: Run Unit Tests
-        run: dotnet test VetApi.UnitTests/ --no-build --configuration Release --verbosity normal --logger trx --results-directory VetApi.UnitTests/TestResults
+        run: dotnet test VetApi.UnitTests/ --no-build --configuration Release --verbosity normal --logger trx --results-directory TestResults
 
       - name: Publish Test Results
         uses: dorny/test-reporter@v1
         if: always()
         with:
           name: .NET Unit Tests
-          path: VetApi.UnitTests/TestResults/*.trx  # <- SIMPLER PATH
+          path: VetApi.UnitTests/TestResults/*.trx
           reporter: dotnet-trx
+
+  frontend-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json  # ✅ Correct path
+
+      - name: Install dependencies
+        run: |
+          cd frontend
+          npm ci
+
+      - name: Build Frontend
+        run: |
+          cd frontend
+          npm run build

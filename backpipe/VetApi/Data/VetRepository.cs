@@ -6,26 +6,17 @@ namespace VetApi.Data
 {
     public class VetRepository
     {
-        private readonly string _connectionString;
+         private readonly string _connectionString;
 
         public VetRepository(IConfiguration config)
         {
-            // 1. First, try to get from Environment Variable
-            var connStr = Environment.GetEnvironmentVariable("MYSQL_CONNECTION_STRING");
-
-            // 2. If not found in environment, fall back to appsettings.json
+            // Get connection string ONLY from IConfiguration.
+            // Program.cs is responsible for providing the correct value.
+            var connStr = config.GetConnectionString("DefaultConnection");
             if (string.IsNullOrEmpty(connStr))
             {
-            connStr = config.GetConnectionString("DefaultConnection");
+                throw new InvalidOperationException("Database connection string 'DefaultConnection' not found in configuration.");
             }
-
-            // 3. If still not found, throw a clear error
-            if (string.IsNullOrEmpty(connStr))
-            {
-            throw new InvalidOperationException("Database connection string not found. " +
-            "Set it in appsettings.json or MYSQL_CONNECTION_STRING environment variable.");
-            }
-
             _connectionString = connStr!;
         }
         // GET all vets
