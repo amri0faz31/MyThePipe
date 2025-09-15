@@ -32,5 +32,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{ github.repository }}/vetapp:latest
-            ghcr.io/${{ github.repository }}/vetapp:${{ github.sha }}
+            ghcr.io/${{ lower(github.repository) }}/vetapp:latest
+            ghcr.io/${{ lower(github.repository) }}/vetapp:${{ github.sha }}
