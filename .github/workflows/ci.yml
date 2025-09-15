@@ -10,6 +10,7 @@ on:
       - 'VetApi.IntegrationTests/**' # ✅ Include integration test projects
       - 'VetApi.sln'            # ✅ Include root solution file
       - '.github/workflows/*.yml' # ✅ Include workflow file itself
+      - 'VetApi.Deployment.sln'
 
 permissions:
   checks: write

@@ -2,10 +2,11 @@
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS backend-build
 WORKDIR /src
 
-# Copy only necessary files for backend
-COPY VetApi.sln .
+# Copy deployment solution instead of full solution
+COPY VetApi.Deployment.sln .
 COPY backpipe/VetApi/VetApi.csproj ./backpipe/VetApi/
-RUN dotnet restore
+
+RUN dotnet restore VetApi.Deployment.sln
 
 # Copy backend source
 COPY backpipe/VetApi/ ./backpipe/VetApi/
