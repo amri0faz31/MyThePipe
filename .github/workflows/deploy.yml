@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Create Deployment Annotation
         run: |  
-          echo "Deployed image: ghcr.io/amri0faz31/mythepipe/vetapp:${{ github.sha }}"
+          echo "Deployed image: ghcr.io/amri0faz31/mythepipe/vetapp:latest"
           echo "Deployment time: $(date)"
           echo "Git commit: ${{ github.sha }}"
 
@@ -23,13 +23,5 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
-          images: ghcr.io/amri0faz31/mythepipe/vetapp:${{ github.sha }}
+          images: ghcr.io/amri0faz31/mythepipe/vetapp:latest
           publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
-          configuration-file: |
-          [
-              {
-                "name": "DOCKER_CUSTOM_IMAGE_NAME",
-                "value": "DOCKER|ghcr.io/amri0faz31/mythepipe/vetapp:${{ github.sha }}",
-                "slotSetting": false
-              }
-          ]
