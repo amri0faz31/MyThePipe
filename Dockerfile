@@ -32,9 +32,11 @@ RUN npm ci
 # Copy frontend source
 COPY frontend/ ./
 
-# Build frontend using Vite directly (ignores scripts in package.json)
-RUN npx vite build --mode production
+# Create production environment file
+RUN echo "VITE_API_BASE=/api" > .env.production
 
+# Build frontend
+RUN npx vite build --mode production
 # -------------------------------
 # Stage 3: Final image
 # -------------------------------
