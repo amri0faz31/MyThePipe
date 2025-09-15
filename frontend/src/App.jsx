@@ -7,7 +7,7 @@ function App() {
   const [loading, setLoading] = useState(false)
 
   // API base URL - points to your backend
-  const API_BASE = import.meta.env.VITE_API_BASE + '/api/vets';
+  const API_BASE = import.meta.env.VITE_API_BASE + '/vets';
   console.log('🔍 API_BASE resolved to:', API_BASE)
 
   // Fetch all vets from backend

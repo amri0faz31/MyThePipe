@@ -6,6 +6,7 @@ on:
     types: [completed]
     branches: [main]
     #hello
+    #hello2
 
 jobs:
   deploy:
