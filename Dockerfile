@@ -33,8 +33,11 @@ WORKDIR /app
 # Copy backend
 COPY --from=backend-build /app/publish .
 
-# Copy frontend build
+# Copy frontend build into wwwroot (served by ASP.NET)
 COPY --from=frontend-build /src/frontend/dist ./wwwroot
 
-EXPOSE 80
+# Azure App Service looks for this port
+EXPOSE 8080
+ENV ASPNETCORE_URLS=http://+:8080
+
 ENTRYPOINT ["dotnet", "VetApi.dll"]
