@@ -1,16 +1,23 @@
 using MySql.Data.MySqlClient;
 using VetApi.Models;
+using System;
 
 namespace VetApi.Data
 {
     public class VetRepository
     {
-        private readonly string _connectionString;
+         private readonly string _connectionString;
 
         public VetRepository(IConfiguration config)
         {
-            _connectionString = config.GetConnectionString("DefaultConnection")
-                ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            // Get connection string ONLY from IConfiguration.
+            // Program.cs is responsible for providing the correct value.
+            var connStr = config.GetConnectionString("DefaultConnection");
+            if (string.IsNullOrEmpty(connStr))
+            {
+                throw new InvalidOperationException("Database connection string 'DefaultConnection' not found in configuration.");
+            }
+            _connectionString = connStr!;
         }
         // GET all vets
         public IEnumerable<Vet> GetAll()
