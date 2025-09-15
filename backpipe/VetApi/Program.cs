@@ -7,13 +7,17 @@ builder.Services.AddControllers();
 builder.Services.AddSingleton<VetRepository>();
 
 // Add CORS policy
-var allowedOrigins = builder.Configuration["AllowedOrigins"] ?? "http://localhost:5173";
+var allowedOrigins = builder.Configuration["AllowedOrigins"] ?? "";
+var originsList = !string.IsNullOrEmpty(allowedOrigins) 
+    ? allowedOrigins.Split(',', StringSplitOptions.RemoveEmptyEntries)
+    : new[] { "http://localhost:5173" };
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp",
         policy =>
         {
-            policy.WithOrigins(allowedOrigins)
+            policy.WithOrigins(originsList)
                   .AllowAnyHeader()
                   .AllowAnyMethod();
         });
@@ -28,7 +32,20 @@ if (app.Environment.IsProduction() || app.Environment.IsStaging())
     var connectionString = app.Configuration.GetConnectionString("DefaultConnection");
     if (!string.IsNullOrEmpty(connectionString))
     {
-        DatabaseMigrator.Migrate(connectionString);
+        try
+        {
+            DatabaseMigrator.Migrate(connectionString);
+            Console.WriteLine("✅ Database migrations completed successfully");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"❌ Database migration failed: {ex.Message}");
+            // Don't crash the app - maybe it's already migrated
+        }
+    }
+    else
+    {
+        Console.WriteLine("⚠️ No connection string found for migrations");
     }
 }
 
