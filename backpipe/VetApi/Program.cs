@@ -77,7 +77,7 @@ if (app.Environment.IsProduction())
 app.UseRouting();
 
 // Enable CORS middleware
-app.UseCors("AllowReactApp");
+app.UseCors("AllowApp");
 
 app.UseAuthorization();
 app.MapControllers();
