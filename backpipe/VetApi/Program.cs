@@ -7,18 +7,34 @@ builder.Services.AddControllers();
 builder.Services.AddSingleton<VetRepository>();
 
 // Add CORS policy
-var allowedOrigins = builder.Configuration["AllowedOrigins"] ?? "";
-var originsList = !string.IsNullOrEmpty(allowedOrigins) 
-    ? allowedOrigins.Split(',', StringSplitOptions.RemoveEmptyEntries)
-    : new[] { "http://localhost:5173" };
+// Smart CORS configuration
+var isProduction = builder.Environment.IsProduction();
+var allowedOriginsConfig = builder.Configuration["AllowedOrigins"];
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowReactApp",
+    options.AddPolicy("AllowApp",
         policy =>
         {
-            policy.WithOrigins(originsList)
-                  .AllowAnyHeader()
+            if (isProduction)
+            {
+                // Production: Allow same origin (frontend served by backend) + any configured external origins
+                if (!string.IsNullOrEmpty(allowedOriginsConfig))
+                {
+                    var originsList = allowedOriginsConfig.Split(',', StringSplitOptions.RemoveEmptyEntries);
+                    policy.WithOrigins(originsList);
+                }
+                // In production, same-origin requests are automatically allowed
+                // even without explicit CORS configuration
+                policy.AllowAnyOrigin(); // Or be more specific if needed
+            }
+            else
+            {
+                // Development/Testing: Allow localhost for React dev server
+                policy.WithOrigins("http://localhost:5173", "https://localhost:5173");
+            }
+            
+            policy.AllowAnyHeader()
                   .AllowAnyMethod();
         });
 });
