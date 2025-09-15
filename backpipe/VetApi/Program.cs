@@ -45,7 +45,8 @@ var app = builder.Build();
 // Skip migrations in Test/Development environments
 if (app.Environment.IsProduction() || app.Environment.IsStaging())
 {
-    var connectionString = app.Configuration.GetConnectionString("DefaultConnection");
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
+                       Environment.GetEnvironmentVariable("PRODUCTION_DB_CONNECTION");
     if (!string.IsNullOrEmpty(connectionString))
     {
         try
