@@ -5,11 +5,12 @@ on:
   pull_request:
     branches: [main]
     paths:
-      - 'backpipe/**'
-      - 'frontend/**'
-      - 'VetApi.UnitTests/**'
-      - 'VetApi.IntegrationTests/**'
-      - '.github/workflows/ci.yml' # ✅ Include workflow file itself
+      - 'backpipe/**'           # ✅ Only trigger on backpipe changes
+      - 'frontend/**'           # ✅ Only trigger on frontend changes
+      - 'VetApi.UnitTests/**'   # ✅ Include unit test projects
+      - 'VetApi.IntegrationTests/**' # ✅ Include integration test projects
+      - 'VetApi.sln'            # ✅ Include root solution file
+      - '.github/workflows/*.yml' # ✅ Include workflow file itself
 
 permissions:
   checks: write
