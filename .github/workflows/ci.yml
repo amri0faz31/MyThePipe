@@ -9,7 +9,7 @@ on:
       - 'VetApi.UnitTests/**'   # ✅ Include unit test projects
       - 'VetApi.IntegrationTests/**' # ✅ Include integration test projects
       - 'VetApi.sln'            # ✅ Include root solution file
-      - '.github/workflows/ci.yml' # ✅ Include workflow file itself
+      - '.github/workflows/*.yml' # ✅ Include workflow file itself
 
 permissions:
   checks: write
