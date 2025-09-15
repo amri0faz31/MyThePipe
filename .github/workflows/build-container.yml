@@ -8,6 +8,10 @@ on:
       - 'frontend/**'
       - 'Dockerfile'
 
+env:
+  # ✅ Convert repository name to lowercase
+  LOWERCASE_REPO: ${{ lower(github.repository) }}
+
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
@@ -32,5 +36,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{ lower(github.repository) }}/vetapp:latest
-            ghcr.io/${{ lower(github.repository) }}/vetapp:${{ github.sha }}
+            ghcr.io/${{ env.LOWERCASE_REPO }}/vetapp:latest
+            ghcr.io/${{ env.LOWERCASE_REPO }}/vetapp:${{ github.sha }}
