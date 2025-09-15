@@ -1,3 +1,4 @@
+# .github/workflows/deploy.yml
 name: Deploy from GHCR
 
 on:
@@ -15,27 +16,22 @@ jobs:
     steps:
       - name: Create Deployment Annotation
         run: |  
-          echo "Deployed image: ghcr.io/${{ github.repository }}/vetapp:latest"
+          echo "Deployed image: ghcr.io/${{ github.repository }}/vetapp:${{ github.sha }}"
           echo "Deployment time: $(date)"
           echo "Git commit: ${{ github.sha }}"
 
-      - name: Login to Azure
-        uses: azure/login@v1
+      - name: Deploy to Azure
+        uses: azure/webapps-deploy@v3
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      - name: Deploy container to Azure
-        run: |
-          az webapp config container set \
-            --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
-            --name ${{ secrets.AZURE_WEBAPP_NAME }} \
-            --container-image-name ghcr.io/amri0faz31/mythepipe/vetapp:latest \
-            --container-registry-url https://ghcr.io \
-            --container-registry-user amri0faz31 \
-            --container-registry-password ${{ secrets.GITHUB_PAT }}
-
-      - name: Restart Azure Web App
-        run: |
-          az webapp restart \
-            --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
-            --name ${{ secrets.AZURE_WEBAPP_NAME }}
+          app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
+          images: ghcr.io/amri0faz31/mythepipe/vetapp:${{ github.sha }}
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
+          # Add this to ensure image is updated:
+          configuration-file: |
+          [   
+            {
+              "name": "DOCKER_CUSTOM_IMAGE_NAME",
+              "value": "DOCKER|ghcr.io/amri0faz31/mythepipe/vetapp:${{ github.sha }}",
+              "slotSetting": false
+            }
+          ]
