@@ -37,7 +37,7 @@ COPY --from=backend-build /app/publish .
 COPY --from=frontend-build /src/frontend/dist ./wwwroot
 
 # Azure App Service looks for this port
-EXPOSE 80
-ENV ASPNETCORE_URLS=http://+:80
+EXPOSE 8080
+ENV ASPNETCORE_URLS=http://+:8080
 
 ENTRYPOINT ["dotnet", "VetApi.dll"]
