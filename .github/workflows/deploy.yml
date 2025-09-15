@@ -1,0 +1,28 @@
+# .github/workflows/deploy.yml
+name: Deploy from GHCR
+
+on:
+  workflow_run:
+    workflows: ["Build and Push Container"]
+    types: [completed]
+    branches: [main]
+
+jobs:
+  deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Create Deployment Annotation
+        run: |  
+          echo "Deployed image: ghcr.io/${{ github.repository }}/vetapp:${{ github.sha }}"
+          echo "Deployment time: $(date)"
+          echo "Git commit: ${{ github.sha }}"
+
+      - name: Deploy to Azure
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
+          images: ghcr.io/${{ github.repository }}/vetapp:${{ github.sha }}
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
