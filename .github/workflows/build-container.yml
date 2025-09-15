@@ -11,6 +11,7 @@ on:
       - 'VetApi.sln'            # ✅ Include root solution file
       - '.github/workflows/*.yml' # ✅ Include workflow file itself
       - 'VetApi.Deployment.sln'
+      - 'Dockerfile'            # ✅ Include Dockerfile
 
 jobs:
   build-and-push:
