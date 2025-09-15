@@ -19,9 +19,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set lowercase repository name
-        run: echo "LOWERCASE_REPO=${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
-
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
         with:
@@ -35,5 +32,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{ env.LOWERCASE_REPO }}/vetapp:latest
-            ghcr.io/${{ env.LOWERCASE_REPO }}/vetapp:${{ github.sha }}
+            ghcr.io/amri0faz31/mythepipe/vetapp:latest
+            ghcr.io/amri0faz31/mythepipe/vetapp:${{ github.sha }}
